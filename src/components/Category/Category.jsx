@@ -36,14 +36,17 @@ const Category = ({title, description, category, handleClickCard, getPage}) => {
 
     useEffect(() => setCards(renderCategory(category, state.categoryIndex, handleClickCard)), [category, state.categoryIndex])
 
+    const prevIndex = useCallback(() => dispatch({type: 'decrement'}),[])
+    const nextIndex = useCallback(() => dispatch({type: 'increment'}),[])
+
     return (
         <div className={'moviesCategoryContainer'}>
             <div className={'categoryTitle'}>{title} <img src={smallArrow} alt="arrowMenu"/></div>
             <div className={'categoryDescription'}>{description}</div>
-            {state.categoryIndex !== 0 && (<ArrowLeftButton handleOnClick={() => dispatch({type: 'decrement'})}/>)}
+            {state.categoryIndex !== 0 && (<ArrowLeftButton handleOnClick={prevIndex}/>)}
             <div className={'moviesContainer'}>{cards}</div>
             {state.categoryIndex !== category.length - CATEGORY_LENGTH && (
-                <ArrowRightButton handleOnClick={() => dispatch({type: 'increment'})}/>)}
+                <ArrowRightButton handleOnClick={nextIndex}/>)}
         </div>
     )
 }

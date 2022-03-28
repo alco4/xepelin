@@ -20,7 +20,6 @@ const MoviesCatalogPage = () => {
     const setTopRatedMoviesPage = useStore((state) => state.setTopRatedMoviesPage)
     const setPopularMoviesPage = useStore((state) => state.setPopularMoviesPage)
     const setUpcomingMoviesPage = useStore((state) => state.setUpcomingMoviesPage)
-    const topRatedMoviesPage = useStore((state) => state.topRatedMoviesPage)
 
     const [isOpenInformationModal, setOpenInformationModal] = useState(false)
 
