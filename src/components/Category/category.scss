@@ -1,0 +1,31 @@
+.moviesCategoryContainer{
+  display: flex;
+  flex-direction: column;
+  padding: 0 50px;
+  align-items: flex-start;
+}
+
+.moviesContainer{
+  display: flex;
+  justify-content: space-around;
+}
+
+.categoryTitle{
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 110%;
+  letter-spacing: -0.02em;
+  color: #141414;
+  margin-bottom: 8px;
+}
+
+.categoryDescription{
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 110%;
+  letter-spacing: -0.02em;
+  color: #666666;
+  margin-bottom: 34px;
+}
