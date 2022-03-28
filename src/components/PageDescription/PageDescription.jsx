@@ -1,27 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import './sectionDescription.scss'
+import './pageDescription.scss'
 
-const SectionDescription = ({sectionLogo, title, description}) => {
-    return(
-        <div className={'sectionContainer'}>
-            {sectionLogo}
-            <div className={'sectionTitle'}>{title}</div>
-            <div className={'sectionDescription'}>{description}</div>
+const PageDescription = ({ pageLogo, title, description }) => {
+    return (
+        <div className={'pageDescriptionContainer'}>
+            {pageLogo}
+            <div className={'pageDescriptionTitle'}>{title}</div>
+            <div className={'pageDescriptionText'}>{description}</div>
         </div>
     )
 }
 
-SectionDescription.defaultProps = {
-    sectionLogo:null,
+PageDescription.defaultProps = {
+    sectionLogo: null,
     title: null,
     description: null
 }
 
-SectionDescription.propTypes = {
+PageDescription.propTypes = {
     sectionLogo: PropTypes.element,
     title: PropTypes.string,
     description: PropTypes.string
 }
 
-export default SectionDescription
+export default PageDescription

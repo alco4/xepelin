@@ -1,21 +1,21 @@
 import React from 'react'
 import PropTypes from "prop-types";
-import './movieCard.scss'
+import './card.scss'
 
-const MovieCard = ({title, date, imageUrl, handleClickMovieCard}) => {
-    return(
-        <div className={'movieCardContainer'} onClick={handleClickMovieCard}>
-            <img className={'imageMovie'} src={imageUrl} alt="imageMovie"/>
-            <div className={'movieTitle'}>{title}</div>
+const Card = ({ title, date, imageUrl, handleClickCard }) => {
+    return (
+        <div className={'cardContainer'} onClick={handleClickCard}>
+            <img className={'cardImage'} src={imageUrl} alt="cardImage" />
+            <div className={'cardTitle'}>{title}</div>
             <div>{date}</div>
         </div>
     )
 }
 
-MovieCard.prototype = {
+Card.prototype = {
     title: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
     imageUrl: PropTypes.string.isRequired,
-    handleClickMovieCard: PropTypes.func.isRequired
+    handleClickCard: PropTypes.func.isRequired
 }
-export default MovieCard
+export default Card

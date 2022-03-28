@@ -1,3 +1,3 @@
-import FilmsCatalogPage from "./FilmsCatalogPage";
+import MoviesCatalogPage from "./MoviesCatalogPage";
 
-export default FilmsCatalogPage
+export default MoviesCatalogPage

@@ -1,9 +1,11 @@
 import React from 'react'
 
-const LoadingMessage = () => {
+const ErrorMessage = ({ message }) => {
     return (
-        <p>Carganeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedo...</p>
+        <div>
+            <p>{message}</p>
+        </div>
     )
 }
 
-export default LoadingMessage
+export default ErrorMessage

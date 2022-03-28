@@ -1,0 +1,24 @@
+.arrowRightButtonContainer {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  right: 40px;
+  top: 190px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../assets/icons/circleIco.svg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+}
+
+.arrowRight {
+  width: 25px;
+  height: 25px;
+  text-decoration: none;
+}

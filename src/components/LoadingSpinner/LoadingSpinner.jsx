@@ -1,9 +1,9 @@
 import React from 'react'
 import spinner from '../../assets/gif/spinner.gif'
-const LoadingMessage = () => {
+const LoadingSpinner = () => {
     return (
-        <img src={spinner} alt={'spinnerGif'}/>
+        <img src={spinner} alt={'spinnerGif'} />
     )
 }
 
-export default LoadingMessage
+export default LoadingSpinner

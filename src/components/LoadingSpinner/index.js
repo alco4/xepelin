@@ -1,3 +1,3 @@
-import LoadingMessage from "./LoadingMessage";
+import LoadingSpinner from "./LoadingSpinner";
 
-export default LoadingMessage
+export default LoadingSpinner

@@ -1,3 +1,3 @@
-import MovieCard from "./MovieCard";
+import Card from "./Card";
 
-export default MovieCard
+export default Card

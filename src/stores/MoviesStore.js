@@ -1,51 +1,87 @@
 import create from 'zustand'
-import axios from 'axios';
-import Movie from "../models/Movie";
+import MoviesService from "../services/MoviesService";
 
-const errorGenerico = 'Ha ocurrido un error, por favor vuelva a intentarlo en unos instantes.'
+const genericError = 'Ha ocurrido un error, por favor vuelva a intentarlo en unos instantes...'
 
-const useStore = create((set)=>({
+const useStore = create((set, get) => ({
     popularMovies: [],
     topRatedMovies: [],
     upcomingMovies: [],
-    isLoadingPopularMovies: false,
-    isLoadingTopRatedMovies: false,
-    isLoadingUpcomingMovies: false,
-    errorCatalogo: null,
-    getPopularMovies: () => {
-        set(()=>({isLoadingPopularMovies: true}))
-        try{
-            axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=e08815ebb9a68b5816a9e3ae26b751e1&language=en-US&page=1`)
-                .then(res => {
-                    const resultList = res?.data?.results.map(movie => Movie.fromJson(movie))
-                    set(()=>({isLoadingPopularMovies: false, popularMovies: [...resultList]}))
-                })
+    movieDetail: null,
+    catalogError: null,
+    topRatedMoviesPage: 1,
+    popularMoviesPage: 1,
+    upcomingMoviesPage: 1,
+    setTopRatedMoviesPage: () => {
+        const topRatedMoviesPage = get().topRatedMoviesPage
+        set(() => ({
+            topRatedMoviesPage: topRatedMoviesPage + 1
+        }))
+    },
+    setPopularMoviesPage: () => {
+        const popularMoviesPage = get().popularMoviesPage
+        set(() => ({
+            popularMoviesPage: popularMoviesPage + 1
+        }))
+    },
+    setUpcomingMoviesPage: () => {
+        const upcomingMoviesPage = get().upcomingMoviesPage
+        set(() => ({
+            upcomingMoviesPage: upcomingMoviesPage + 1
+        }))
+    },
+    getTopRatedMovies: async () => {
+        const topRatedMoviesPage = get().topRatedMoviesPage
+        const topRatedMovies = get().topRatedMovies
+        try {
+            const resultList = await MoviesService.getTopRatedMovies(topRatedMoviesPage)
+            set(() => ({
+                topRatedMovies: topRatedMovies.concat(resultList)
+            }))
         } catch (e) {
-            set(()=>({errorCatalogo: errorGenerico}))
+            set(() => ({
+                catalogError: genericError
+            }))
         }
     },
-    getTopRatedMovies: () => {
-        set(()=>({isLoadingTopRatedMovies: true}))
-        try{
-            axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=e08815ebb9a68b5816a9e3ae26b751e1&language=en-US&page=1`)
-                .then(res => {
-                    const resultList = res?.data?.results.map(movie => Movie.fromJson(movie))
-                    set(()=>({isLoadingTopRatedMovies: false,topRatedMovies: [...resultList]}))
-                })
+    getPopularMovies: async () => {
+        const popularMoviesPage = get().popularMoviesPage
+        const popularMovies = get().popularMovies
+        try {
+            const resultList = await MoviesService.getPopularMovies(popularMoviesPage)
+            set(() => ({
+                popularMovies: popularMovies.concat(resultList)
+            }))
         } catch (e) {
-            set(()=>({errorCatalogo: errorGenerico}))
+            set(() => ({
+                catalogError: genericError
+            }))
         }
     },
-    getUpcomingMovies: () => {
-        set(()=>({isLoadingUpcomingMovies: true}))
-        try{
-            axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=e08815ebb9a68b5816a9e3ae26b751e1&language=en-US&page=1`)
-                .then(res => {
-                    const resultList = res?.data?.results.map(movie => Movie.fromJson(movie))
-                    set(()=>({isLoadingUpcomingMovies: false, upcomingMovies: [...resultList]}))
-                })
+    getUpcomingMovies: async () => {
+        const upcomingMoviesPage = get().upcomingMoviesPage
+        const upcomingMovies = get().upcomingMovies
+        try {
+            const resultList = await MoviesService.getUpcomingMovies(upcomingMoviesPage)
+            set(() => ({
+                upcomingMovies: upcomingMovies.concat(resultList)
+            }))
         } catch (e) {
-            set(()=>({errorCatalogo: errorGenerico}))
+            set(() => ({
+                catalogError: genericError
+            }))
+        }
+    },
+    getMovieInformation: async (id) => {
+        try {
+            const movieDetail = await MoviesService.getMovieInformation(id)
+            set(() => ({
+                movieDetail: movieDetail
+            }))
+        } catch (e) {
+            set(() => ({
+                catalogError: genericError
+            }))
         }
     }
 }))

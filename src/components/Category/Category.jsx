@@ -1,62 +1,68 @@
-import React, {useCallback, useState, useEffect} from 'react'
+import React, {useCallback, useState, useEffect, useReducer} from 'react'
 import PropTypes from 'prop-types';
 import Card from '../Card';
 import ArrowLeftButton from '../ArrowLeftButton';
 import ArrowRightButton from '../ArrowRightButton';
 import smallArrow from '../../assets/icons/smallArrow.svg';
-import {MOVIES_CATEGORY_LENGTH} from "../../constants";
-import './moviesCategory.scss'
+import {CATEGORY_LENGTH} from "../../constants";
+import './category.scss'
 
-const renderCategory = (category, index, handleClickMovieCard) => category.slice(index, index+MOVIES_CATEGORY_LENGTH).map(({id, title, date, imageUrl})=> {
-    return(<Card key={id} title={title} date={date} imageUrl={imageUrl} handleClickCard={()=>handleClickMovieCard(id)}/>)
+const renderCategory = (category, index, handleClickCard) => category.slice(index, index + CATEGORY_LENGTH).map(({id, title, date, imageUrl}) => {
+    return (<Card key={id} title={title} date={date} imageUrl={imageUrl} handleClickCard={() => handleClickCard(id)}/>)
 })
 
-const MoviesCategory = ({title, description, movieCategory, handleClickMovieCard}) => {
-    const [indexCategory, setIndexCategory] = useState(0)
-    const [movies, setMovies] = useState(null)
+const initialState = {categoryIndex: 0};
 
-    useEffect(()=> setMovies(renderCategory(movieCategory, indexCategory, handleClickMovieCard)) ,[movieCategory, indexCategory])
+function reducer(state, action) {
+    switch (action.type) {
+        case 'increment':
+            return {categoryIndex: state.categoryIndex + 1};
+        case 'decrement':
+            return {categoryIndex: state.categoryIndex - 1};
+        default:
+            throw new Error();
+    }
+}
 
-    const handleCategoryPrev = useCallback(() => {
-        setIndexCategory(prevIndex => {
-            if(prevIndex===0) {
-                return prevIndex
-            }
-            return prevIndex - 1
-        })
-    },[indexCategory])
+const Category = ({title, description, category, handleClickCard, getPage}) => {
+    const [cards, setCards] = useState(null)
+    const [state, dispatch] = useReducer(reducer, initialState);
 
-    const handleCategoryNext = useCallback(() => {
-        setIndexCategory(prevIndex => {
-            if(prevIndex===movieCategory.length-MOVIES_CATEGORY_LENGTH) {
-                return prevIndex
-            }
-            return prevIndex + 1
-        })
-    },[indexCategory])
+    useEffect( ()=> {
+        if (state.categoryIndex === category.length - CATEGORY_LENGTH - 1) {
+            getPage()
+        }
+    }, [state.categoryIndex])
 
-    return(
+    useEffect(() => setCards(renderCategory(category, state.categoryIndex, handleClickCard)), [category, state.categoryIndex])
+
+    return (
         <div className={'moviesCategoryContainer'}>
             <div className={'categoryTitle'}>{title} <img src={smallArrow} alt="arrowMenu"/></div>
             <div className={'categoryDescription'}>{description}</div>
-            {indexCategory !== 0 && (<ArrowLeftButton handleOnClick={handleCategoryPrev}/>)}
-            <div className={'moviesContainer'}>{movies}</div>
-            {indexCategory !== movieCategory.length-MOVIES_CATEGORY_LENGTH && (<ArrowRightButton handleOnClick={handleCategoryNext}/>)}
+            {state.categoryIndex !== 0 && (<ArrowLeftButton handleOnClick={() => dispatch({type: 'decrement'})}/>)}
+            <div className={'moviesContainer'}>{cards}</div>
+            {state.categoryIndex !== category.length - CATEGORY_LENGTH && (
+                <ArrowRightButton handleOnClick={() => dispatch({type: 'increment'})}/>)}
         </div>
     )
 }
 
-MoviesCategory.defaultProps = {
+Category.defaultProps = {
     title: null,
     description: null,
-    handleClickMovieCard: ()=>{},
+    handleClickCard: () => {
+    },
+    getPage: () => {
+    },
 }
 
-MoviesCategory.propTypes = {
+Category.propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
-    handleClickMovieCard: PropTypes.func,
-    movieCategory: PropTypes.array.isRequired
+    category: PropTypes.array.isRequired,
+    handleClickCard: PropTypes.func,
+    getPage: PropTypes.func
 }
 
-export default MoviesCategory
+export default Category

@@ -1,3 +1,3 @@
-import MoviesCategory from "./MoviesCategory";
+import Category from "./Category";
 
-export default MoviesCategory
+export default Category

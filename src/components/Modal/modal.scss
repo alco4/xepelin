@@ -1,0 +1,77 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+}
+
+.modalContainer {
+  position: absolute;
+  width: 800px;
+  height: 612px;
+  left: calc(50% - 800px / 2);
+  top: 120px;
+  background: #ffffff;
+  box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+}
+
+.modalImage {
+  position: absolute;
+  width: 355px;
+  height: 532px;
+  left: calc(50% - 355px / 2 - 192.5px);
+  top: 40px;
+  filter: drop-shadow(0px 4px 24px rgba(0, 0, 0, 0.4));
+  border-radius: 6px;
+}
+
+.modalTitle {
+  position: absolute;
+  width: 355px;
+  height: 42px;
+  left: calc(50% - 355px / 2 + 192.5px);
+  top: 30px;
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 110%;
+  letter-spacing: -0.02em;
+  color: #141414;
+}
+
+.modalAction {
+  position: absolute;
+  left: calc(50% - 355px / 2 + 192.5px);
+  top: 135px;
+}
+
+.modalDescription {
+  position: absolute;
+  width: 355px;
+  height: 400px;
+  left: calc(50% - 355px / 2 + 192.5px);
+  top: 190px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 150%;
+  letter-spacing: -0.02em;
+  color: #666666;
+  margin: 0 auto;
+  display: block;
+  overflow: auto;
+}
+
+.modalClose {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  right: -55px;
+  top: 0px;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+}

@@ -1,3 +1,3 @@
-import FilmsHeader from './FilmsHeader'
+import MoviesHeader from './MoviesHeader'
 
-export default FilmsHeader
+export default MoviesHeader

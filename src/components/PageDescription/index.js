@@ -1,3 +1,3 @@
-import SectionDescription from "./SectionDescription";
+import PageDescription from "./PageDescription";
 
-export default SectionDescription
+export default PageDescription

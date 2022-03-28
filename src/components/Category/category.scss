@@ -1,16 +1,16 @@
-.moviesCategoryContainer{
+.moviesCategoryContainer {
   display: flex;
   flex-direction: column;
   padding: 0 50px;
   align-items: flex-start;
 }
 
-.moviesContainer{
+.moviesContainer {
   display: flex;
   justify-content: space-around;
 }
 
-.categoryTitle{
+.categoryTitle {
   font-style: normal;
   font-weight: 700;
   font-size: 28px;
@@ -20,7 +20,7 @@
   margin-bottom: 8px;
 }
 
-.categoryDescription{
+.categoryDescription {
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
